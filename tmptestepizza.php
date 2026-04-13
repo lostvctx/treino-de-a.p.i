@@ -1,6 +1,6 @@
 <?php 
 require_once 'confug/database.php';
-require_once 'models/pizza.php'; // Incluímos nossa nova classe
+require_once 'models/bebida.php'; // Incluímos nossa nova classe
  
 echo "<h1>Testando Conexão e Modelo</h1>";
  
@@ -14,17 +14,17 @@ if (!$db) {
  
 echo "<p style='color: green;'>Conexão bem-sucedida!</p>";
  
-echo "<h2>Criando um objeto Pizza...</h2>";
+echo "<h2>Criando um objeto bebida...</h2>";
  
-// Criamos uma instância da classe Pizza, passando a conexão com o banco
-$pizza = new Pizza($db);
+// Criamos uma instância da classe bebida, passando a conexão com o banco
+$bebida = new bebida($db);
  
 // Atribuímos valores às suas propriedades públicas
-$pizza->nome = 'Margherita';
-$pizza->ingredientes = 'Mussarela, fatias de tomate e manjericão fresco';
-$pizza->valor = 42.50;
+$bebida->nome = 'Margherita';
+$bebida->ingredientes = 'Mussarela, fatias de tomate e manjericão fresco';
+$bebida->valor = 42.50;
  
 // Vamos inspecionar o objeto!
 echo "<pre>"; // A tag <pre> ajuda a formatar a saída do print_r
-print_r($pizza);
+print_r($bebida);
 echo "</pre>";

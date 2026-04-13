@@ -1,5 +1,5 @@
 <?php
-// api/bebida/read.php
+// api/pizza/getall.php
  
 // Headers obrigatórios
 header("Access-Control-Allow-Origin: *");
@@ -13,9 +13,11 @@ include_once '../../models/bebida.php';
 $database = new Database();
 $db = $database->getConnection();
  
-// Instanciar o objeto bebida
-$bebida = new Bebida($db);
-// try{ colocar para demonstrar erro com coluna errada mas lá no método read em pizza
+// Instanciar o objeto Pizza
+$bebida = new bebida($db);
+$stmt = $bebida->read();
+$num = $stmt->rowCount();
+try{ //colocar para demonstrar erro com coluna errada mas lá no método read em pizza
     // Chamar o método read() para buscar as pizzas
     $stmt = $bebida->read();
     $num = $stmt->rowCount();
@@ -34,24 +36,28 @@ $bebida = new Bebida($db);
                 "id" => $idBebida,
                 "nome" => $nome,
                 "tipo" => $tipo,
-                "qtdLitros" =>$qtdLitros,
+                "qtdLitros" => $qtdLitros,
                 "valor" => $valor
             );
  
             array_push($bebidas_arr, $bebida_item);
         }
  
+        // Definir o código de resposta como 200 OK
         http_response_code(200);
  
+        // Mostrar os dados das pizzas em formato JSON
         echo json_encode($bebidas_arr);
     } else {
+        // Se nenhuma pizza for encontrada, definir o código de resposta como 404 Not Found
         http_response_code(404);
+ 
+        // Informar ao usuário que nenhuma pizza foi encontrada
         echo json_encode(
             array("message" => "Nenhuma bebida encontrada.")
         );
     }
-// }
-// catch (Exception $e) {
-//  echo json_encode(array("erro" => $e->getMessage()));
-// 
- 
+ }
+ catch (Exception $e) {
+ echo json_encode(array("erro" => $e->getMessage()));
+ }
